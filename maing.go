@@ -5,14 +5,12 @@ import (
 	"sp/control"
 )
 
-
-
 func main() {
 
 	// Engin
 
 	router := gin.Default()
-	obj:= control.NewSp()
+	obj := control.NewSp()
 	v2 := router.Group("/v1")
 
 	{
