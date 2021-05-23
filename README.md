@@ -10,5 +10,5 @@ frond_end:目录是微信小程序代码。
 历史采集的日k数据。
 
 微信小程序体验二维码
-![临时体验二维码](./wx.Png)
-![小程序内容](./识别结果.Png)
+![临时体验二维码](![](https://i.loli.net/2021/05/23/qjoGNtTM8BV5lsw.png))
+![小程序内容](![](https://i.loli.net/2021/05/23/HMK3uWjqy7wOo1g.png))
