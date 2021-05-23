@@ -1,0 +1,33 @@
+<!--index.wxml-->
+<view class="sear-tab">
+ <view class='info-row'>
+    <view class='info-label'>股票代码(sz、sh)</view>
+    <input class='info-input' type='text'  data-name='stockInfo.stockCode' value='{{stockInfo.stockCode}}' placeholder='请输入' bindinput='getTargetVal'></input>
+  </view>
+   <view class='info-row'>
+    <view class='info-label'>iv 初始误差</view>
+    <input class='info-input' type='text'  data-name='stockInfo.stockIv' value='{{stockInfo.stockIv}}' placeholder='请输入' bindinput='getTargetVal'></input>
+  </view>
+   <view class='info-row'>
+    <view class='info-label'>pv模型误差</view>
+    <input class='info-input' type='text'  data-name='stockInfo.stockPv' value='{{stockInfo.stockPv}}' placeholder='请输入' bindinput='getTargetVal'></input>
+  </view>
+   <view class='info-row'>
+    <view class='info-label'>ov观测误差</view>
+    <input class='info-input' type='text'  data-name='stockInfo.stockOv' value='{{stockInfo.stockOv}}' placeholder='请输入' bindinput='getTargetVal'></input>
+  </view>
+  <view class='info-row'>
+    <view class='info-label'>股价类型</view>
+    <picker class='info-picker' range="{{stockList}}" range-key="{{'fullName'}}" bindchange="stockSelect">
+      <view class='picker-placeholder'>{{stockInfo.stockTypeName||'股价类型'}}
+        <view class='picker-arrow'></view>
+      </view>
+    </picker>
+  </view>
+</view>
+<button class="sear-btn" bindtap="searchBind">查询</button>
+<!-- <view>明日预测价：{{predictPrice}}</view> -->
+<view class="container">
+
+  <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+</view>

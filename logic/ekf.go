@@ -15,7 +15,6 @@ import "math"
 func choldc1(a, p []float64, n int) int {
 	i, j, k := 0, 0, 0
 	sum := float64(0.0)
-
 	for i = 0; i < n; i++ {
 		for j = i; j < n; j++ {
 			sum = a[i*n+j]
@@ -42,20 +41,21 @@ func choldcsl(A, a, p []float64, n int) int {
 		for j = 0; j < n; j++ {
 			a[i*n+j] = A[i*n+j]
 		}
-		if choldc1(a, p, n) != 0 {
-			return 1
-		}
-		for i = 0; i < n; i++ {
-			a[i*n+i] = 1 / p[i]
-			for j = i + 1; j < n; j++ {
-				sum = 0
-				for k = i; k < j; k++ {
-					sum -= a[j*n+k] * a[k*n+i]
-				}
-				a[j*n+i] = sum / p[j]
+	}
+	if choldc1(a, p, n) != 0 {
+		return 1
+	}
+	for i = 0; i < n; i++ {
+		a[i*n+i] = 1 / p[i]
+		for j = i + 1; j < n; j++ {
+			sum = 0
+			for k = i; k < j; k++ {
+				sum -= a[j*n+k] * a[k*n+i]
 			}
+			a[j*n+i] = sum / p[j]
 		}
 	}
+
 	return 0 /* success */
 }
 
@@ -95,7 +95,9 @@ func zeros(a []float64, m, n int) int {
 	}
 	return 0
 }
-
+func _malloc(m, n int) []float64 {
+	return make([]float64,m*n)
+}
 //#ifdef DEBUG
 //static void dump(double * a, int m, int n, const char * fmt)
 //{
@@ -184,7 +186,18 @@ func mat_addeye(a []float64, n int) {
 		a[i*n+i] += 1
 	}
 }
-
+func cum_addeye(a []float64, n int,f func()float64) {
+	i := 0
+	for i = 0; i < n; i++ {
+		a[i*n+i] += f()
+	}
+}
+func cum_init(a []float64, f func()float64) {
+	i := 0
+	for i = 0; i < len(a); i++ {
+		a[i] += f()
+	}
+}
 /* TinyEKF code ------------------------------------------------------------------- */
 
 type ekf_t struct {
@@ -216,6 +229,27 @@ type ekf_t struct {
 }
 
 func ekf_init(ekf *ekf_t, n, m int) {
+	ekf.x=_malloc(n,1)
+	ekf.P=_malloc(n,n)
+	ekf.Q=_malloc(n,n)
+	ekf.R=_malloc(m,m)
+	ekf.G=_malloc(n,m)
+	ekf.F=_malloc(n,n)
+	ekf.H=_malloc(m,n)
+
+	ekf.Ht=_malloc(n,m)
+	ekf.Ft=_malloc(n,n)
+	ekf.Pp=_malloc(n,n)
+
+	ekf.tmp0=_malloc(n,n)
+	ekf.tmp1=_malloc(n,m)
+	ekf.tmp2=_malloc(m,n)
+	ekf.tmp3=_malloc(m,m)
+	ekf.tmp4=_malloc(m,m)
+	ekf.tmp5=_malloc(m,1)
+
+	ekf.fx=_malloc(n,1)
+	ekf.hx=_malloc(m,1)
 	/* zero-out matrices */
 	zeros(ekf.P, n, n)
 	zeros(ekf.Q, n, n)
@@ -256,4 +290,12 @@ func ekf_step(ekf *ekf_t, z []float64, n, m int) int {
 
 	/* success */
 	return 0
+}
+
+//形参mu为正态分布均值，sigma为正态分布方差，x为所取的自变量
+
+func Normal( mu, sigma, x float64)float64 {
+	result:=0.0 //结果变量
+	result=math.Exp((-1)*(x-mu)*(x-mu)/(2*sigma*sigma))/(math.Sqrt(2*math.Pi)*sigma)
+	return result
 }

@@ -19,15 +19,15 @@ func TestGetStockData(t *testing.T) {
 		// TODO: Add test cases.
 		{
 			args:args{
-				stockId:"600004",//"002156"
-				start:"2021-04-30",
-				end:"2021-05-14",
+				stockId:"002156",//"002156"
+				start:"2021-04-15",
+				end:"2021-05-15",
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetStockData(tt.args.stockId, tt.args.start, tt.args.end); !reflect.DeepEqual(got, tt.want) {
+			if got := getStockData(tt.args.stockId, tt.args.start, tt.args.end); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetStockData() = %v, want %v", got, tt.want)
 			}
 		})

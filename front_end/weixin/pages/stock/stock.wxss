@@ -1,0 +1,70 @@
+/**index.wxss**/
+page{
+  width:100%;
+  height:100%;
+}
+.container{
+  width:100%;
+  height:calc(100% - 550rpx);
+  padding:0;
+  /* height:100%; */
+}
+ec-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.info-wrap {
+  background: #fff;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 30rpx;
+  margin-top: 20rpx;
+}
+.info-row {
+  display: flex;
+  width: 690rpx;
+  height: 88rpx;
+  border-bottom: 2rpx solid #e2e2e2;
+  justify-content: space-between;
+  padding: 0 30rpx;
+}
+
+.info-label {
+  font-size: 32rpx;
+  line-height: 88rpx;
+  color: #888;
+}
+
+.info-input {
+  width: 420rpx;
+  height: 88rpx;
+  font-size: 32rpx;
+  text-align: right;
+  justify-content: flex-end;
+  color: #333;
+}
+input::placeholder{
+  color: #bbb;
+  font-size: 32rpx;
+}
+.sear-btn{
+  margin-top:20rpx;
+  color:#fff;
+  background: #00a0e4;
+}
+.info-picker {
+  height: 90rpx;
+  font-size: 32rpx;
+  color: #bbb;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.picker-placeholder {
+  align-items: center;
+  height: 100%;
+  color:#bbb;
+}
