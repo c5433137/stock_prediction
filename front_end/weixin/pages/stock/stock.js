@@ -13,7 +13,12 @@ let chart={};
 var option = {
   title: {
     text: '股票代码',
-    left: 'center'
+    left: 'center',
+   subtext : '纯属虚构',
+  subtextStyle:{
+      fontWeight: 'bloder'
+    }
+
   },
   legend: {
     data: ['实际股价', '预测值','回测数据'],
@@ -80,7 +85,8 @@ function initChart(canvas, width, height, dpr) {
     // option.series[2].data = res.Ori[stockIndex]
     let v = res.NewValue[stockIndex].toFixed(2)
     console.log("v=",v)
-    option.title.text = `股票代码:${res.Stock} | 下一个交易日预测价：${res.NewValue[stockIndex].toFixed(2)}`
+    option.title.text = `股票代码:${res.Stock}`
+    option.title.subtext = `下一个交易日预测价：${res.NewValue[stockIndex].toFixed(2)}`
     chart.setOption(option);
   })
 
@@ -177,7 +183,8 @@ Page({
       option.xAxis.data = res.X
       option.series[0].data = res.Real[stockIndex]
       option.series[1].data = [null, ...res.Predict[stockIndex]]
-      option.title.text = `股票代码:${res.Stock} | 下一个交易日预测价：${res.NewValue[stockIndex].toFixed(2)}`
+      option.title.text = `股票代码:${res.Stock}`
+      option.title.subtext = `下一个交易日预测价：${res.NewValue[stockIndex].toFixed(2)}`
       
       // todo:这里没有获取到chart实例
       console.log("chart=", chart)
