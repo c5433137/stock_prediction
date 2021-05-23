@@ -1,5 +1,10 @@
 package logic
 
+import (
+	"fmt"
+	"strconv"
+)
+
 type ResData struct {
 	Stock string
 	X []int
@@ -24,8 +29,21 @@ func Prediction(data []CodeListNewType,iv,pv,ov float64) ResData  {
 		t.Real[2] = append(t.Real[2],v.MinPrice)
 		t.Real[3] = append(t.Real[3],v.MaxPrice)
 	}
-	t.Stock = data[0].Code
+	//t.Stock = data[0].Code
 	t.Ori,t.Predict,t.NewValue = ekf(data,iv,pv,ov)
+
+	//处理精度问题
+	for i,vv:=range t.NewValue{
+		t.NewValue[i], _ = strconv.ParseFloat(fmt.Sprintf("%.3f", vv), 64)
+	}
+	for _,v :=range t.Predict{
+		for i,vv:=range v{
+			v[i], _ = strconv.ParseFloat(fmt.Sprintf("%.3f", vv), 64)
+		}
+	}
+
+
+
 	return t
 }
 

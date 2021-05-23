@@ -47,8 +47,9 @@ func (s *Sp) GetStockPredictionData(g *gin.Context)  {
 		return
 	}
 	var res logic.ResData
-	res.Stock = market+stockId
+
 	res = logic.Prediction(data,_iv,_pv,_ov)
+	res.Stock = market+stockId
 	g.JSON(200,gin.H{
 		"code":200,
 		"msg":"成功",
