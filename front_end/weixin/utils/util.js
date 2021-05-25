@@ -20,9 +20,10 @@ const formatNumber = n => {
 //网络请求封装
 const http = function (params) {
   console.log('入参', params)
+  
   return new Promise(function (resolve, reject) {
     wx.request({
-      url: "https://hello-cloudbase-2gpsh9l1b016489a-1302740567.ap-shanghai.app.tcloudbase.com/v1" + params.url,
+      url: "https://hello-cloudbase-2gpsh9l1b016489a-1302740567.ap-shanghai.app.tcloudbase.com" + params.url,
       method: params.method || 'GET',
       data: params.data || {},
       header: Object.assign({

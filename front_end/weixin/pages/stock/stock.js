@@ -106,7 +106,7 @@ function getData(){
       stockOv = '' } = stockInfo
       
     http({
-      url: `/get_stock_prediction_data?stockId=${stockCode}&iv=${stockIv}&pv=${stockPv}&ov=${stockOv}`
+      url: `/v1/get_stock_prediction_data?stockId=${stockCode}&iv=${stockIv}&pv=${stockPv}&ov=${stockOv}`
     }).then(
       res => {
     // debugger
